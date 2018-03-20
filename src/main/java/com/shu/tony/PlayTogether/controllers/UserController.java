@@ -8,7 +8,9 @@ import com.shu.tony.PlayTogether.service.user.UserService;
 import com.shu.tony.PlayTogether.utils.SHAEncodeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.UnsupportedEncodingException;
@@ -23,13 +25,13 @@ public class UserController {
     @Autowired
     private UserService userService;
     @RequestMapping("check")
-    public boolean check(String username) {
+    public boolean check(@RequestParam String username) {
         User user = userRepository.findByUsername(username);
         return user != null;
     }
 
     @RequestMapping("register")
-    public RegisterResult register(RegisterCriteria criteria) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+    public RegisterResult register(@RequestBody RegisterCriteria criteria) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         return userService.updateUser(criteria);
     }
 
