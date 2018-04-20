@@ -13,8 +13,11 @@ public class User {
     private long id;
     @Column(nullable = false)
     private String username;
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String password;
     @Column(nullable = true)
+    private String nickName;
+    @Column(nullable = true)
     private String loginType;
+
 }

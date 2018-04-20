@@ -20,7 +20,6 @@ public class TestRepository {
     public void testUserRepository() {
         User user = new User();
         user.setUsername("Tony");
-        user.setEmail("247238913@qq.com");
         userRepository.save(user);
     }
 }

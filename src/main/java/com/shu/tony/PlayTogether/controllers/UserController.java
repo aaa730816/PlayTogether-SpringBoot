@@ -1,11 +1,12 @@
 package com.shu.tony.PlayTogether.controllers;
 
 import com.shu.tony.PlayTogether.entity.User;
-import com.shu.tony.PlayTogether.nonentity.user.RegisterCriteria;
-import com.shu.tony.PlayTogether.nonentity.user.RegisterResult;
+import com.shu.tony.PlayTogether.nonentity.common.ResultBase;
+import com.shu.tony.PlayTogether.nonentity.user.NickNameVo;
+import com.shu.tony.PlayTogether.nonentity.user.UserVo;
+import com.shu.tony.PlayTogether.nonentity.user.UserResult;
 import com.shu.tony.PlayTogether.repository.UserRepository;
 import com.shu.tony.PlayTogether.service.user.UserService;
-import com.shu.tony.PlayTogether.utils.SHAEncodeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,15 +25,25 @@ public class UserController {
     private UserRepository userRepository;
     @Autowired
     private UserService userService;
+
     @RequestMapping("check")
     public boolean check(@RequestParam String username) {
         User user = userRepository.findByUsername(username);
-        return user != null;
+        return user == null;
     }
 
+    @RequestMapping("changeNickName")
+    public ResultBase checkNickName(@RequestBody NickNameVo vo) {
+        return userService.changeNickName(vo);
+    }
     @RequestMapping("register")
-    public RegisterResult register(@RequestBody RegisterCriteria criteria) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+    public UserResult register(@RequestBody UserVo criteria) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         return userService.updateUser(criteria);
+    }
+
+    @RequestMapping("login")
+    public UserResult login(@RequestBody UserVo criteria) {
+        return userService.login(criteria);
     }
 
 }
