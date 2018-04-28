@@ -1,12 +1,16 @@
 package com.shu.tony.PlayTogether.service.user;
 
+import com.shu.tony.PlayTogether.entity.Activity;
 import com.shu.tony.PlayTogether.entity.User;
+import com.shu.tony.PlayTogether.nonentity.activity.ActivityVo;
 import com.shu.tony.PlayTogether.nonentity.common.ResultBase;
 import com.shu.tony.PlayTogether.nonentity.user.LoginType;
 import com.shu.tony.PlayTogether.nonentity.user.NickNameVo;
 import com.shu.tony.PlayTogether.nonentity.user.UserVo;
 import com.shu.tony.PlayTogether.nonentity.user.UserResult;
+import com.shu.tony.PlayTogether.repository.ActivityRepository;
 import com.shu.tony.PlayTogether.repository.UserRepository;
+import com.shu.tony.PlayTogether.service.activity.ActivityService;
 import com.shu.tony.PlayTogether.utils.SHAEncodeUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +19,21 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
 public class UserService {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private ActivityRepository activityRepository;
+    @Autowired
+    private ActivityService activityService;
 
     @Transactional
     public UserResult updateUser(UserVo vo) {
@@ -96,5 +108,26 @@ public class UserService {
             result.setMessage("昵称已存在");
         }
         return result;
+    }
+
+    public List<ActivityVo> getJoinActivities(String userId) {
+        User user = userRepository.findById(Long.valueOf(userId)).get();
+        if (user != null) {
+            Set<Activity> participateActivities = user.getParticipateActivities();
+            return participateActivities.stream().map(activity -> {
+                ActivityVo activityVo = new ActivityVo();
+                activityService.translateEntityToVo(activity,activityVo);
+                return activityVo;
+            }).collect(Collectors.toList());
+        }
+        return new ArrayList<>();
+    }
+
+    public List<ActivityVo> getCreateActivities(String userId) {
+        return activityRepository.findByCreator(userId).stream().map(activity -> {
+            ActivityVo activityVo = new ActivityVo();
+            activityService.translateEntityToVo(activity, activityVo);
+            return activityVo;
+        }).collect(Collectors.toList());
     }
 }
