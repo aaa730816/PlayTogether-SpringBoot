@@ -15,11 +15,20 @@ public class Equipment extends BaseEntity {
     private String title="";
     private String description="";
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "tenant")
     private User tenant;
     private Double cost;
     private String unit="";
     private Double guarantee;
+    private Double costForSort;
+
+    public Double getCostForSort() {
+        return costForSort;
+    }
+
+    public void setCostForSort(Double costForSort) {
+        this.costForSort = costForSort;
+    }
 
     public int getNum() {
         return num;

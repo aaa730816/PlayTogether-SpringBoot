@@ -1,11 +1,11 @@
-package com.shu.tony.PlayTogether.nonentity.activity;
+package com.shu.tony.PlayTogether.nonentity.equipment;
 
 import com.shu.tony.PlayTogether.entity.GeoLocation;
 import com.shu.tony.PlayTogether.nonentity.common.PageCriteria;
 import lombok.Data;
 
 @Data
-public class ActivityCriteria extends PageCriteria {
+public class EquipmentCriteria extends PageCriteria {
     private GeoLocation location;
     private String type;
 }

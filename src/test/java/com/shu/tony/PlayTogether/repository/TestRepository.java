@@ -2,6 +2,7 @@ package com.shu.tony.PlayTogether.repository;
 
 import com.shu.tony.PlayTogether.entity.Activity;
 import com.shu.tony.PlayTogether.entity.GeoLocation;
+import com.shu.tony.PlayTogether.entity.Message;
 import com.shu.tony.PlayTogether.entity.User;
 import com.shu.tony.PlayTogether.nonentity.activity.ActivityVo;
 import org.junit.Test;
@@ -25,6 +26,9 @@ public class TestRepository {
     private ActivityRepository activityRepository;
     @Autowired
     private ActivityRepositoryImpl activityRepositoryImpl;
+    @Autowired
+    private MessageRepository messageRepository;
+
     @Test
     @Transactional
     @Rollback(value = false)
@@ -34,4 +38,22 @@ public class TestRepository {
         userRepository.save(user);
     }
 
+    @Test
+    @Transactional
+    @Rollback(value = false)
+    public void testMessageRepository() {
+        Message message = new Message();
+        message.setMessage("test3");
+        message.setSender("2");
+        message.setEventId("45");
+        message.setCreateTime(new Date().getTime());
+        messageRepository.save(message);
+    }
+
+    @Test
+    @Transactional(readOnly = true)
+    public void testGetMessage(){
+        List<Message> messages = messageRepository.findAll();
+        System.out.println(messages.size());
+    }
 }

@@ -17,4 +17,6 @@ public class EquipmentVo {
     private Double cost;
     private String unit;
     private Double guarantee;
+    private String address;
+    private Double distance;
 }

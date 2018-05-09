@@ -26,10 +26,10 @@ public class TestService {
         geoLocation.setLongitude("121.39903");
         geoLocation.setLatitude("31.32144");
         ActivityCriteria geoCriteria=new ActivityCriteria();
-        geoCriteria.setGeoLocation(geoLocation);
+        geoCriteria.setLocation(geoLocation);
         geoCriteria.setPage(0);
         geoCriteria.setSize(10);
-        geoCriteria.setActivityType("basketball");
+        geoCriteria.setType("basketball");
         PageImpl<ActivityVo> nearest = activityService.findNearest(geoCriteria);
         System.out.println(nearest.getTotalPages());
     }

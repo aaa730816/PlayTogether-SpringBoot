@@ -13,9 +13,9 @@ import java.util.Set;
 @Table
 @Entity
 public class Activity extends BaseEntity {
-    @Column(nullable = false)
+    @Column
     private String title;
-    @Column(nullable = false)
+    @Column
     private Date startTime;
     @Embedded
     private GeoLocation location;
