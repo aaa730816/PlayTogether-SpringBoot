@@ -18,7 +18,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import static com.shu.tony.PlayTogether.utils.NotificationUtil.SendNotification;
 
-@ServerEndpoint("/activityServer/{activityId}/{deviceId}")
+@ServerEndpoint("/activityServer/{activityId}/{userId}")
 @Component
 @Slf4j
 public class ActivityServer {
@@ -27,13 +27,13 @@ public class ActivityServer {
     private Session session;
 
     @OnOpen
-    public void onOpen(@PathParam("activityId") String activityId, @PathParam("deviceId") String deviceId, Session session) {
+    public void onOpen(@PathParam("activityId") String activityId, @PathParam("userId") String userId, Session session) {
         this.session = session;
         if (activityServers.containsKey(activityId)) {
-            activityServers.get(activityId).put(deviceId, this);
+            activityServers.get(activityId).put(userId, this);
         } else {
             ConcurrentHashMap<String, ActivityServer> activityServerList = new ConcurrentHashMap<>();
-            activityServerList.put(deviceId, this);
+            activityServerList.put(userId, this);
             activityServers.put(activityId, activityServerList);
         }
         if (onlineCountMap.containsKey(activityId)) {
@@ -41,12 +41,12 @@ public class ActivityServer {
         } else {
             onlineCountMap.put(activityId, 1);
         }
-        System.out.println(activityId + "活动聊天室有新链接"+deviceId+"!共" + onlineCountMap.get(activityId) + "个用户");
+        System.out.println(activityId + "活动聊天室有新链接"+userId+"!共" + onlineCountMap.get(activityId) + "个用户");
     }
 
     @OnClose
-    public void onClose(@PathParam("activityId") String activityId, @PathParam("deviceId") String deviceId) {
-        activityServers.get(activityId).remove(deviceId);
+    public void onClose(@PathParam("activityId") String activityId, @PathParam("userId") String userId) {
+        activityServers.get(activityId).remove(userId);
         onlineCountMap.put(activityId, onlineCountMap.get(activityId) - 1);
         System.out.println(activityId + "活动聊天室关闭");
     }
@@ -59,9 +59,9 @@ public class ActivityServer {
     }
 
     @OnMessage
-    public void onMessage(@PathParam("activityId") String activityId, @PathParam("deviceId") String deviceId, String message, Session session) throws IOException {
+    public void onMessage(@PathParam("activityId") String activityId, @PathParam("userId") String userId, String message, Session session) throws IOException {
         message = saveMessage(message);
-        sendMessageToAll(activityId, message, deviceId);
+        sendMessageToAll(activityId, message, userId);
         System.out.println(message);
     }
 
@@ -69,10 +69,10 @@ public class ActivityServer {
         this.session.getBasicRemote().sendText(message);
     }
 
-    public void sendMessageToAll(String activityId, String message, String deviceId) throws IOException {
+    public void sendMessageToAll(String activityId, String message, String userId) throws IOException {
         List<String> alias = new ArrayList<>();
         activityServers.get(activityId).entrySet().stream().forEach(e -> {
-            if (!e.getKey().equals(deviceId)) {
+            if (!e.getKey().equals(userId)) {
                 alias.add(e.getKey());
             }
             try {
@@ -81,7 +81,7 @@ public class ActivityServer {
                 e1.printStackTrace();
             }
         });
-        SendNotification(message, alias, JpushConfig.URL.getConfig());
+        SendNotification(message, alias);
     }
 
 

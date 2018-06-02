@@ -1,7 +1,9 @@
 package com.shu.tony.PlayTogether.service.equipment;
 
 import ch.hsr.geohash.GeoHash;
+import com.alibaba.fastjson.JSONObject;
 import com.shu.tony.PlayTogether.entity.Equipment;
+import com.shu.tony.PlayTogether.entity.Message;
 import com.shu.tony.PlayTogether.entity.User;
 import com.shu.tony.PlayTogether.nonentity.common.CostUnit;
 import com.shu.tony.PlayTogether.nonentity.common.EventResult;
@@ -17,6 +19,7 @@ import com.shu.tony.PlayTogether.repository.EquipmentRespositoryImpl;
 import com.shu.tony.PlayTogether.repository.UserRepository;
 import com.shu.tony.PlayTogether.service.chat.MessageService;
 import com.shu.tony.PlayTogether.utils.LocationUtil;
+import com.shu.tony.PlayTogether.utils.NotificationUtil;
 import com.spatial4j.core.io.GeohashUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -182,6 +185,10 @@ public class EquipmentService {
                 eventVo.setType(EventType.EQUIPMENT.getName());
                 result.setEvent(eventVo);
                 result.setSuccess(true);
+                StringBuilder messageBuilder = new StringBuilder();
+                messageBuilder.append(user.getNickName()).append("租借了你的器材[").append(equipment.getTitle()).append("]");
+                Message message = new Message(messageBuilder.toString(), "system", String.valueOf(equipment.getId()), new Date().getTime(), EventType.EQUIPMENT.getName());
+                NotificationUtil.SendNotification(JSONObject.toJSONString(message), Arrays.asList(equipment.getCreator()));
             } else {
                 result.setMessage("找不到器材");
                 result.setSuccess(false);

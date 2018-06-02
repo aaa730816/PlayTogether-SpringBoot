@@ -18,7 +18,7 @@ import java.util.List;
 @Slf4j
 public class NotificationUtil {
 
-    public static void SendNotification(String message, List<String> alias, String jpushUrl) {
+    public static void SendNotification(String message, List<String> alias) {
         MessageVo messageVo = JSONObject.parseObject(message, MessageVo.class);
         JPushClient jPushClient = new JPushClient(JpushConfig.MASTER_SECRET.getConfig(), JpushConfig.APP_KEY.getConfig(),null, ClientConfig.getInstance());
         PushPayload pushPayload = buildPushObject(alias, messageVo);

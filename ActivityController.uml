@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>com.shu.tony.PlayTogether.controllers.ActivityController</OriginalElement>
+  <nodes>
+    <node x="1582.0" y="1012.5">com.shu.tony.PlayTogether.service.user.UserService</node>
+    <node x="401.5" y="258.5">com.shu.tony.PlayTogether.service.chat.MessageService</node>
+    <node x="2021.0" y="973.0">com.shu.tony.PlayTogether.repository.ActivityRepositoryImpl</node>
+    <node x="3732.5" y="875.5">com.shu.tony.PlayTogether.controllers.EquipmentController</node>
+    <node x="2487.0" y="635.5">com.shu.tony.PlayTogether.controllers.ActivityController</node>
+    <node x="880.0" y="1281.5">com.shu.tony.PlayTogether.repository.UserRepository</node>
+    <node x="1142.0" y="1001.0">com.shu.tony.PlayTogether.controllers.UserController</node>
+    <node x="3753.5" y="1446.5">com.shu.tony.PlayTogether.service.equipment.EquipmentService</node>
+    <node x="4317.0" y="270.0">com.shu.tony.PlayTogether.controllers.MessageController</node>
+    <node x="357.0" y="1641.5">com.shu.tony.PlayTogether.repository.MessageRepository</node>
+    <node x="2629.0" y="378.5">com.shu.tony.PlayTogether.repository.ActivityRepository</node>
+    <node x="3757.5" y="1813.0">com.shu.tony.PlayTogether.repository.EquipmentRespositoryImpl</node>
+    <node x="1962.5" y="555.0">com.shu.tony.PlayTogether.service.activity.ActivityService</node>
+    <node x="2970.5" y="1070.0">com.shu.tony.PlayTogether.repository.EquipmentRespository</node>
+    <node x="-11.0" y="235.5">com.shu.tony.PlayTogether.websocket.EquipmentServer</node>
+    <node x="429.0" y="-4.5">com.shu.tony.PlayTogether.websocket.ActivityServer</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.shu.tony.PlayTogether.controllers.UserController" target="com.shu.tony.PlayTogether.service.user.UserService">
+      <point x="178.0" y="-0.0" />
+      <point x="-178.0" y="-0.0" />
+    </edge>
+    <edge source="com.shu.tony.PlayTogether.service.activity.ActivityService" target="com.shu.tony.PlayTogether.repository.UserRepository">
+      <point x="-237.5" y="-0.0" />
+      <point x="1000.0" y="720.0" />
+      <point x="0.0" y="-38.5" />
+    </edge>
+    <edge source="com.shu.tony.PlayTogether.websocket.EquipmentServer" target="com.shu.tony.PlayTogether.service.chat.MessageService">
+      <point x="171.0" y="-0.0" />
+      <point x="-198.5" y="-0.0" />
+    </edge>
+    <edge source="com.shu.tony.PlayTogether.service.equipment.EquipmentService" target="com.shu.tony.PlayTogether.repository.EquipmentRespository">
+      <point x="-40.0" y="-153.5" />
+      <point x="3920.0" y="1120.0" />
+      <point x="349.5" y="-0.0" />
+    </edge>
+    <edge source="com.shu.tony.PlayTogether.service.activity.ActivityService" target="com.shu.tony.PlayTogether.repository.ActivityRepository">
+      <point x="0.0" y="-165.0" />
+      <point x="2200.0" y="440.0" />
+      <point x="-291.0" y="-0.0" />
+    </edge>
+    <edge source="com.shu.tony.PlayTogether.service.chat.MessageService" target="com.shu.tony.PlayTogether.repository.MessageRepository">
+      <point x="0.0" y="61.5" />
+      <point x="0.0" y="-38.5" />
+    </edge>
+    <edge source="com.shu.tony.PlayTogether.service.user.UserService" target="com.shu.tony.PlayTogether.repository.EquipmentRespository">
+      <point x="178.0" y="-0.0" />
+      <point x="-349.5" y="-0.0" />
+    </edge>
+    <edge source="com.shu.tony.PlayTogether.service.equipment.EquipmentService" target="com.shu.tony.PlayTogether.repository.EquipmentRespositoryImpl">
+      <point x="0.0" y="153.5" />
+      <point x="0.0" y="-27.0" />
+    </edge>
+    <edge source="com.shu.tony.PlayTogether.service.user.UserService" target="com.shu.tony.PlayTogether.service.equipment.EquipmentService">
+      <point x="0.0" y="107.5" />
+      <point x="1760.0" y="1520.0" />
+      <point x="-206.5" y="-80.0" />
+    </edge>
+    <edge source="com.shu.tony.PlayTogether.service.activity.ActivityService" target="com.shu.tony.PlayTogether.repository.ActivityRepositoryImpl">
+      <point x="0.0" y="165.0" />
+      <point x="0.0" y="-27.0" />
+    </edge>
+    <edge source="com.shu.tony.PlayTogether.service.chat.MessageService" target="com.shu.tony.PlayTogether.service.equipment.EquipmentService">
+      <point x="40.0" y="61.5" />
+      <point x="640.0" y="1600.0" />
+      <point x="-206.5" y="-0.0" />
+    </edge>
+    <edge source="com.shu.tony.PlayTogether.service.activity.ActivityService" target="com.shu.tony.PlayTogether.service.chat.MessageService">
+      <point x="-40.0" y="-165.0" />
+      <point x="2160.0" y="340.0" />
+      <point x="198.5" y="20.0" />
+    </edge>
+    <edge source="com.shu.tony.PlayTogether.service.equipment.EquipmentService" target="com.shu.tony.PlayTogether.repository.UserRepository">
+      <point x="-206.5" y="-40.0" />
+      <point x="1000.0" y="1560.0" />
+      <point x="0.0" y="38.5" />
+    </edge>
+    <edge source="com.shu.tony.PlayTogether.websocket.ActivityServer" target="com.shu.tony.PlayTogether.service.chat.MessageService">
+      <point x="0.0" y="84.5" />
+      <point x="0.0" y="-61.5" />
+    </edge>
+    <edge source="com.shu.tony.PlayTogether.service.chat.MessageService" target="com.shu.tony.PlayTogether.repository.UserRepository">
+      <point x="198.5" y="40.0" />
+      <point x="960.0" y="360.0" />
+      <point x="-40.0" y="-38.5" />
+    </edge>
+    <edge source="com.shu.tony.PlayTogether.controllers.EquipmentController" target="com.shu.tony.PlayTogether.service.equipment.EquipmentService">
+      <point x="0.0" y="84.5" />
+      <point x="0.0" y="-153.5" />
+    </edge>
+    <edge source="com.shu.tony.PlayTogether.service.user.UserService" target="com.shu.tony.PlayTogether.service.activity.ActivityService">
+      <point x="0.0" y="-107.5" />
+      <point x="1760.0" y="760.0" />
+      <point x="-237.5" y="40.0" />
+    </edge>
+    <edge source="com.shu.tony.PlayTogether.service.user.UserService" target="com.shu.tony.PlayTogether.repository.UserRepository">
+      <point x="-40.0" y="107.5" />
+      <point x="1720.0" y="1320.0" />
+      <point x="120.0" y="-0.0" />
+    </edge>
+    <edge source="com.shu.tony.PlayTogether.controllers.UserController" target="com.shu.tony.PlayTogether.repository.UserRepository">
+      <point x="0.0" y="119.0" />
+      <point x="1320.0" y="1293.3333333333335" />
+      <point x="120.0" y="-26.66666666666663" />
+    </edge>
+    <edge source="com.shu.tony.PlayTogether.controllers.MessageController" target="com.shu.tony.PlayTogether.service.chat.MessageService">
+      <point x="-203.0" y="-0.0" />
+      <point x="198.5" y="-0.0" />
+    </edge>
+    <edge source="com.shu.tony.PlayTogether.service.user.UserService" target="com.shu.tony.PlayTogether.repository.ActivityRepository">
+      <point x="178.0" y="-40.0" />
+      <point x="2920.0" y="1080.0" />
+      <point x="0.0" y="61.5" />
+    </edge>
+    <edge source="com.shu.tony.PlayTogether.service.chat.MessageService" target="com.shu.tony.PlayTogether.service.activity.ActivityService">
+      <point x="198.5" y="30.0" />
+      <point x="1000.0" y="350.0" />
+      <point x="1000.0" y="680.0" />
+      <point x="-237.5" y="-40.0" />
+    </edge>
+    <edge source="com.shu.tony.PlayTogether.service.equipment.EquipmentService" target="com.shu.tony.PlayTogether.service.chat.MessageService">
+      <point x="206.5" y="-0.0" />
+      <point x="4240.0" y="1600.0" />
+      <point x="4240.0" y="330.0" />
+      <point x="198.5" y="10.0" />
+    </edge>
+    <edge source="com.shu.tony.PlayTogether.controllers.ActivityController" target="com.shu.tony.PlayTogether.service.activity.ActivityService">
+      <point x="-193.0" y="-0.0" />
+      <point x="237.5" y="-0.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.5297415240013428" x="1321.0864421328474" y="897.9693181684929" />
+  <SelectedNodes>
+    <node>com.shu.tony.PlayTogether.controllers.UserController</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>public</VISIBILITY>
+</Diagram>
+

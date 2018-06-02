@@ -22,7 +22,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import static com.shu.tony.PlayTogether.utils.NotificationUtil.SendNotification;
 
-@ServerEndpoint("/equipmentServer/{equipmentId}/{deviceId}")
+@ServerEndpoint("/equipmentServer/{equipmentId}/{userId}")
 @Component
 @Slf4j
 public class EquipmentServer {
@@ -30,13 +30,13 @@ public class EquipmentServer {
     private static ConcurrentHashMap<String, Map<String, EquipmentServer>> equipmentServers = new ConcurrentHashMap<>();
     private Session session;
     @OnOpen
-    public void onOpen(@PathParam("equipmentId") String equipmentId,@PathParam("deviceId") String deviceId, Session session) {
+    public void onOpen(@PathParam("equipmentId") String equipmentId,@PathParam("userId") String userId, Session session) {
         this.session = session;
         if (equipmentServers.containsKey(equipmentId)) {
-            equipmentServers.get(equipmentId).put(deviceId,this);
+            equipmentServers.get(equipmentId).put(userId,this);
         } else {
             Map<String,EquipmentServer> equipmentServerList = new ConcurrentHashMap();
-            equipmentServerList.put(deviceId,this);
+            equipmentServerList.put(userId,this);
             equipmentServers.put(equipmentId, equipmentServerList);
         }
         if (onlineCountMap.containsKey(equipmentId)) {
@@ -44,20 +44,20 @@ public class EquipmentServer {
         } else {
             onlineCountMap.put(equipmentId, 1);
         }
-        System.out.println(equipmentId + "器材聊天室有新链接"+deviceId+"!共" + onlineCountMap.get(equipmentId) + "个用户");
+        System.out.println(equipmentId + "器材聊天室有新链接"+userId+"!共" + onlineCountMap.get(equipmentId) + "个用户");
     }
 
     @OnClose
-    public void onClose(@PathParam("equipmentId") String equipmentId,@PathParam("deviceId") String deviceId) {
-        equipmentServers.get(equipmentId).remove(deviceId);
+    public void onClose(@PathParam("equipmentId") String equipmentId,@PathParam("userId") String userId) {
+        equipmentServers.get(equipmentId).remove(userId);
         onlineCountMap.put(equipmentId, onlineCountMap.get(equipmentId) - 1);
         System.out.println(equipmentId+"器材聊天室关闭");
     }
 
     @OnMessage
-    public void onMessage(@PathParam("equipmentId") String equipmentId,@PathParam("deviceId") String deviceId, String message, Session session) throws IOException {
+    public void onMessage(@PathParam("equipmentId") String equipmentId,@PathParam("userId") String userId, String message, Session session) throws IOException {
         message = saveMessage(message);
-        sendMessageToAll(equipmentId, message,deviceId);
+        sendMessageToAll(equipmentId, message,userId);
         System.out.println(message);
     }
 
@@ -72,10 +72,10 @@ public class EquipmentServer {
         this.session.getBasicRemote().sendText(message);
     }
 
-    public void sendMessageToAll(String equipmentId, String message,String deviceId) throws IOException {
+    public void sendMessageToAll(String equipmentId, String message,String userId) throws IOException {
         List<String> alias = new ArrayList<>();
         equipmentServers.get(equipmentId).entrySet().stream().forEach(e -> {
-            if (!e.getKey().equals(deviceId)) {
+            if (!e.getKey().equals(userId)) {
                 alias.add(e.getKey());
             }
             try {
@@ -84,7 +84,7 @@ public class EquipmentServer {
                 e1.printStackTrace();
             }
         });
-        SendNotification(message, alias, JpushConfig.URL.getConfig());
+        SendNotification(message, alias);
     }
 
     private String saveMessage(String messageStr) {

@@ -1,7 +1,10 @@
 package com.shu.tony.PlayTogether.service.activity;
 
 import ch.hsr.geohash.GeoHash;
+import com.alibaba.fastjson.JSONObject;
+import com.google.gson.JsonObject;
 import com.shu.tony.PlayTogether.entity.Activity;
+import com.shu.tony.PlayTogether.entity.Message;
 import com.shu.tony.PlayTogether.entity.User;
 import com.shu.tony.PlayTogether.nonentity.activity.ActivityCriteria;
 import com.shu.tony.PlayTogether.nonentity.activity.ActivityVo;
@@ -17,6 +20,7 @@ import com.shu.tony.PlayTogether.repository.ActivityRepositoryImpl;
 import com.shu.tony.PlayTogether.repository.UserRepository;
 import com.shu.tony.PlayTogether.service.chat.MessageService;
 import com.shu.tony.PlayTogether.utils.LocationUtil;
+import com.shu.tony.PlayTogether.utils.NotificationUtil;
 import com.spatial4j.core.io.GeohashUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +33,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -169,6 +174,10 @@ public class ActivityService {
                 eventVo.setType(EventType.ACTIVITY.getName());
                 result.setEvent(eventVo);
                 result.setSuccess(true);
+                StringBuilder messageBuilder = new StringBuilder();
+                messageBuilder.append(user.getNickName()).append("加入了活动[").append(activity.getTitle()).append("]");
+                Message message = new Message(messageBuilder.toString(), "system", String.valueOf(activity.getId()), new Date().getTime(), EventType.ACTIVITY.getName());
+                NotificationUtil.SendNotification(JSONObject.toJSONString(message),Arrays.asList(activity.getCreator()));
             }
         } else {
             result.setSuccess(false);
