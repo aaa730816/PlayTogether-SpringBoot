@@ -125,7 +125,7 @@ public class ActivityService {
 
     @Transactional
     public PageImpl<ActivityVo> findNewest(ActivityCriteria activityCriteria) {
-        Page<Activity> activityPage = activityRepository.findAllByType(activityCriteria.getType(), new PageRequest(activityCriteria.getPage(), activityCriteria.getSize(), new Sort(Sort.Direction.ASC, "createTime")));
+        Page<Activity> activityPage = activityRepository.findAllByType(activityCriteria.getType(), new PageRequest(activityCriteria.getPage(), activityCriteria.getSize(), new Sort(Sort.Direction.DESC, "createTime")));
         List<ActivityVo> activityVos = translateEntitysToVos(activityCriteria, activityPage);
         return new PageImpl<>(activityVos, new PageRequest(activityCriteria.getPage(), activityCriteria.getSize()), activityPage.getTotalElements());
     }

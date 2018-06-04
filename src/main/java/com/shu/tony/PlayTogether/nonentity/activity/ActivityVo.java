@@ -12,7 +12,7 @@ public class ActivityVo {
     private String title;
     private Date startTime;
     private GeoLocation location;
-    private String cost;
+    private Double cost;
     private int numOfPeople;
     private Boolean needBringEquipment = false;
     private String description;

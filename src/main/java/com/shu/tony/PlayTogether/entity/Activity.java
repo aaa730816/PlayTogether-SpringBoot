@@ -19,7 +19,7 @@ public class Activity extends BaseEntity {
     private Date startTime;
     @Embedded
     private GeoLocation location;
-    private String cost;
+    private Double cost;
     private int numOfPeople;
     private Boolean needBringEquipment = false;
     private String description;
@@ -55,11 +55,11 @@ public class Activity extends BaseEntity {
         this.location = location;
     }
 
-    public String getCost() {
+    public Double getCost() {
         return cost;
     }
 
-    public void setCost(String cost) {
+    public void setCost(Double cost) {
         this.cost = cost;
     }
 

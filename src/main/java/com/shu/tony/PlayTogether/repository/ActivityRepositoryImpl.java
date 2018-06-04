@@ -35,7 +35,7 @@ public class ActivityRepositoryImpl {
         query=query.unwrap(SQLQuery.class).addScalar("id", StandardBasicTypes.LONG)
                 .addScalar("title", StandardBasicTypes.STRING)
                 .addScalar("startTime", StandardBasicTypes.TIMESTAMP)
-                .addScalar("cost", StandardBasicTypes.STRING)
+                .addScalar("cost", StandardBasicTypes.DOUBLE)
                 .addScalar("numOfPeople", StandardBasicTypes.INTEGER)
                 .addScalar("needBringEquipment", StandardBasicTypes.BOOLEAN)
                 .addScalar("description", StandardBasicTypes.STRING)
